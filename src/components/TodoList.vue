@@ -23,12 +23,12 @@ const filteredTasks = computed(() => todoListStore.filteredTodoList);
 
 <template>
   <article class="text-slate-800 dark:text-slate-50">
-    <p v-if="isTodoListEmpty">List is empty</p>
-    <ul v-else class="">
+    <p v-if="isTodoListEmpty" class="text-center text-xl">List is empty</p>
+    <ul v-else class="py-4">
       <li
         v-for="task in filteredTasks"
         :key="task.id"
-        class="flex justify-between"
+        class="flex justify-between items-center px-4"
       >
         <input
           type="checkbox"
@@ -44,24 +44,35 @@ const filteredTasks = computed(() => todoListStore.filteredTodoList);
           class="text-slate-800"
         />
         <span v-else :class="{ 'task-completed': task.isCompleted }">
-          {{ task.taskText }}
+          {{ task.taskText.toUpperCase() }}
         </span>
 
         <div>
-          <button @click="task.isEditing = !task.isEditing">edit</button>
-          <button @click="todoListStore.deleteTodoItem(task.id)">delete</button>
+          <button
+            @click="task.isEditing = !task.isEditing"
+            class="mr-2 text-amber-600"
+          >
+            edit
+          </button>
+          <button
+            @click="todoListStore.deleteTodoItem(task.id)"
+            class="text-red-500"
+          >
+            delete
+          </button>
         </div>
       </li>
     </ul>
-
-    <!-- List Footer Section -->
-    <section class="flex justify-between items-center">
-      <p>items remaining {{ remainingItems }}</p>
+    <section class="flex justify-between items-center px-4 mt-4 pb-2">
+      <p>
+        Items Remaining: <span class="font-bold">{{ remainingItems }}</span>
+      </p>
       <button
         v-if="hasCompletedItems"
         @click="todoListStore.clearCompletedItems"
+        class="hover:scale-110 duration-200"
       >
-        clear completed
+        Clear Completed
       </button>
     </section>
   </article>
