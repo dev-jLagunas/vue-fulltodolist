@@ -1,0 +1,32 @@
+/**********************************************************
+TAILWIND CONFIG
+***********************************************************/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**************************************************************
+RESET
+***************************************************************/
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/**************************************************************
+GLOBAL STYLES
+***************************************************************/
+html {
+  width: 90vw;
+  margin-inline: auto;
+  height: 100vh;
+  background-color: #f8eded;
+  font-family: "SUSE", sans-serif;
+}
+
+html.dark {
+  background-color: #1e201e;
+}
