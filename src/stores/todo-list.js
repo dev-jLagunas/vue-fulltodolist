@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import confetti from "canvas-confetti";
 
 export const useTodoListStore = defineStore("todoList", {
   state: () => ({
@@ -58,6 +59,17 @@ export const useTodoListStore = defineStore("todoList", {
       this.todoList = this.todoList.map((todo) =>
         todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
       );
+
+      const completedTodo = this.todoList.find(
+        (todo) => todo.id === id && todo.isCompleted
+      );
+      if (completedTodo) {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+      }
       this.saveToLocalStorage();
     },
 
