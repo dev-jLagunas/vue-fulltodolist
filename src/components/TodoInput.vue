@@ -11,12 +11,49 @@
         name="task-text"
         id="task-text"
         placeholder="Add a todo item"
-        class="flex flex-1 text-xs py-2 px-2 rounded-sm focus:outline-1 focus:outline-red-200 dark:text-slate-800"
+        class="flex flex-1 text-xs py-2 px-2 rounded-l-sm focus:outline-1 focus:outline-red-200 dark:text-slate-800 bg-slate-800 dark:bg-slate-50"
       />
+      <button
+        class="text-slate-800 dark:bg-transparent before:bg-orange-400 dark:before:bg-blue-800 rounded-r-sm h-full dark:text-slate-50"
+      >
+        Add
+      </button>
     </div>
   </fieldset>
 </template>
 
 <style scoped>
-/*  */
+button {
+  z-index: 1;
+  position: relative;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0.5em 1em;
+  outline: none;
+  border: none;
+  overflow: hidden;
+  transition: color 0.4s ease-in-out;
+}
+
+button::before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  transform-origin: center;
+  transform: translate3d(-50%, -50%, 0) scale3d(0, 0, 0);
+  transition: transform 0.45s ease-in-out;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:hover::before {
+  transform: translate3d(-50%, -50%, 0) scale3d(15, 15, 15);
+}
 </style>
