@@ -1,4 +1,21 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+import { useTodoListStore } from "@/stores/todo-list";
+
+// REFS
+const taskText = ref("");
+
+// STORE
+const todoListStore = useTodoListStore();
+
+// METHODS
+const addTask = () => {
+  if (taskText.value.trim()) {
+    todoListStore.addTodoItem(taskText.value);
+    taskText.value = "";
+  }
+};
+</script>
 
 <template>
   <fieldset
@@ -11,10 +28,13 @@
         name="task-text"
         id="task-text"
         placeholder="Add a todo item"
-        class="flex flex-1 text-xs py-2 px-2 rounded-l-sm focus:outline-1 focus:outline-red-200 dark:text-slate-800 bg-slate-800 dark:bg-slate-50"
+        class="flex flex-1 text-xs py-2 px-2 text-slate-50 rounded-l-sm focus:outline-1 focus:outline-red-200 dark:text-slate-800 bg-slate-800 dark:bg-slate-50"
+        v-model="taskText"
+        @keyup.enter="addTask"
       />
       <button
         class="text-slate-800 dark:bg-transparent before:bg-orange-400 dark:before:bg-blue-800 rounded-r-sm h-full dark:text-slate-50"
+        @click="addTask"
       >
         Add
       </button>
