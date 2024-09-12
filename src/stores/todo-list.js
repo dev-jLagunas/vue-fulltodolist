@@ -5,6 +5,7 @@ export const useTodoListStore = defineStore("todoList", {
   state: () => ({
     todoList: [],
     filter: "all",
+    sortOrder: "",
   }),
   getters: {
     filteredTodoList(state) {
@@ -18,6 +19,21 @@ export const useTodoListStore = defineStore("todoList", {
           return state.todoList;
       }
     },
+    sortedTodoList(state) {
+      return [...state.todoList].sort((a, b) => {
+        const priorityOrder = { mandatory: 1, important: 2, optional: 3 };
+        if (state.sortOrder === "mandatory-first") {
+          return (
+            priorityOrder[a.priorityLevel] - priorityOrder[b.priorityLevel]
+          );
+        } else if (state.sortOrder === "optional-first") {
+          return (
+            priorityOrder[b.priorityLevel] - priorityOrder[a.priorityLevel]
+          );
+        }
+        return 0;
+      });
+    },
   },
   actions: {
     saveToLocalStorage() {
@@ -29,10 +45,21 @@ export const useTodoListStore = defineStore("todoList", {
       this.todoList = savedTodoList ? JSON.parse(savedTodoList) : [];
     },
 
-    addTodoItem(taskText) {
+    setSortOrder(order) {
+      this.sortOrder = order;
+      localStorage.setItem("sortOrder", order);
+    },
+
+    loadSortOrder() {
+      const savedSortOrder = localStorage.getItem("sortOrder");
+      this.sortOrder = savedSortOrder ? savedSortOrder : "mandatory-first";
+    },
+
+    addTodoItem(taskText, priorityLevel) {
       const newTask = {
         id: this.generateUniqueId(),
         taskText: taskText,
+        priorityLevel: priorityLevel,
         isCompleted: false,
         isEditing: false,
       };

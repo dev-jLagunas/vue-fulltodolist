@@ -5,6 +5,7 @@ import { useTodoListStore } from "@/stores/todo-list";
 // MOUNTED
 onMounted(() => {
   todoListStore.loadFromLocalStorage();
+  todoListStore.loadSortOrder();
 });
 
 // STORE
@@ -19,7 +20,20 @@ const remainingItems = computed(
 const hasCompletedItems = computed(() =>
   todoListStore.todoList.some((task) => task.isCompleted)
 );
-const filteredTasks = computed(() => todoListStore.filteredTodoList);
+
+const sortedAndFilteredTasks = computed(() => {
+  const filtered = todoListStore.filteredTodoList;
+  return filtered.sort((a, b) => {
+    const priorityOrder = { mandatory: 1, important: 2, optional: 3 };
+    if (todoListStore.sortOrder === "mandatory-first") {
+      return priorityOrder[a.priorityLevel] - priorityOrder[b.priorityLevel];
+    } else if (todoListStore.sortOrder === "optional-first") {
+      return priorityOrder[b.priorityLevel] - priorityOrder[a.priorityLevel];
+    }
+    return 0;
+  });
+});
+
 const isCompletedListEmpty = computed(
   () =>
     todoListStore.filter === "completed" &&
@@ -44,16 +58,26 @@ const isActiveListEmpty = computed(
     </p>
     <ul v-else class="py-4">
       <li
-        v-for="task in filteredTasks"
+        v-for="task in sortedAndFilteredTasks"
         :key="task.id"
         class="flex justify-between items-center px-4 border-b border-dotted border-b-slate-300 mt-2"
       >
-        <input
-          type="checkbox"
-          :checked="task.isCompleted"
-          @change="todoListStore.toggleCompleted(task.id)"
-        />
-
+        <div class="flex items-center justify-center gap-2">
+          <span
+            :class="{
+              'text-red-500': task.priorityLevel === 'mandatory',
+              'text-yellow-500': task.priorityLevel === 'important',
+              'text-green-500': task.priorityLevel === 'optional',
+            }"
+          >
+            <i class="fa-solid fa-circle-exclamation text-xs"></i>
+          </span>
+          <input
+            type="checkbox"
+            :checked="task.isCompleted"
+            @change="todoListStore.toggleCompleted(task.id)"
+          />
+        </div>
         <input
           v-if="task.isEditing"
           type="text"

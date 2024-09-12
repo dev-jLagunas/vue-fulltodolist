@@ -7,7 +7,7 @@ const todoListStore = useTodoListStore();
 
 <template>
   <div
-    class="text-slate-800 dark:text-slate-50 flex justify-evenly items-center py-2 px-4 border-t border-dotted border-slate-600"
+    class="text-slate-800 dark:text-slate-50 grid grid-cols-2 gap-2 sm:flex sm:justify-evenly sm:items-center py-2 px-4 border-t border-dotted border-slate-600"
   >
     <button
       @click="todoListStore.setFilter('all')"
@@ -27,6 +27,17 @@ const todoListStore = useTodoListStore();
     >
       Completed
     </button>
+    <select
+      name="sort-select"
+      id="sort-select"
+      class="bg-slate-800 text-slate-50 dark:bg-slate-50 dark:text-slate-800 text-sm py-1 rounded-sm px-1"
+      v-model="todoListStore.sortOrder"
+      @change="todoListStore.setSortOrder($event.target.value)"
+    >
+      <option value="" disabled selected>Sort By:</option>
+      <option value="mandatory-first">Mandatory First</option>
+      <option value="optional-first">Optional First</option>
+    </select>
   </div>
 </template>
 

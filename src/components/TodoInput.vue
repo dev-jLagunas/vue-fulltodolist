@@ -4,15 +4,17 @@ import { useTodoListStore } from "@/stores/todo-list";
 
 // REFS
 const taskText = ref("");
+const priorityLevel = ref("");
 
 // STORE
 const todoListStore = useTodoListStore();
 
 // METHODS
 const addTask = () => {
-  if (taskText.value.trim()) {
-    todoListStore.addTodoItem(taskText.value);
+  if (taskText.value.trim() && priorityLevel.value) {
+    todoListStore.addTodoItem(taskText.value, priorityLevel.value);
     taskText.value = "";
+    priorityLevel.value = "";
   }
 };
 </script>
@@ -39,6 +41,38 @@ const addTask = () => {
         Add
       </button>
     </div>
+    <fieldset class="flex justify-evenly items-center text-sm pt-2 text-center">
+      <label for="mandatory">
+        <input
+          type="radio"
+          id="mandatory"
+          name="priority"
+          value="mandatory"
+          v-model="priorityLevel"
+        />
+        Mandatory
+      </label>
+      <label for="important">
+        <input
+          type="radio"
+          id="important"
+          name="priority"
+          value="important"
+          v-model="priorityLevel"
+        />
+        Important
+      </label>
+      <label for="optional">
+        <input
+          type="radio"
+          id="optional"
+          name="priority"
+          value="optional"
+          v-model="priorityLevel"
+        />
+        Optional
+      </label>
+    </fieldset>
   </fieldset>
 </template>
 
