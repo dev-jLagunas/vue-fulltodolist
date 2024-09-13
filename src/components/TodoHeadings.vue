@@ -1,12 +1,30 @@
 <script setup>
+import { ref } from "vue";
 import { useTodoListStore } from "@/stores/todo-list";
+import TodoDeleteModal from "./TodoDeleteModal.vue";
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
+
+// REFS
+const isModalVisible = ref(false);
+
+// METHODS
+const showHideModal = () => {
+  if (!todoListStore.todoList.length) {
+    toast.warning("List Already Empty");
+  } else {
+    isModalVisible.value = !isModalVisible.value;
+  }
+};
+
+const confirmDeleteAll = () => {
+  todoListStore.deleteAllTasks();
+  isModalVisible.value = false;
+};
 
 // STORE
 const todoListStore = useTodoListStore();
-
-const deleteAllTasks = () => {
-  todoListStore.deleteAllTasks();
-};
 </script>
 
 <template>
@@ -24,9 +42,9 @@ const deleteAllTasks = () => {
       </p>
       <button
         class="bg-red-500 text-slate-50 px-3 rounded-sm text-sm hover:scale-125 duration-700 -mt-2"
-        @click="deleteAllTasks"
+        @click="showHideModal"
       >
-        Delete All
+        Start Fresh
       </button>
     </div>
     <button
@@ -34,6 +52,12 @@ const deleteAllTasks = () => {
     >
       Actions
     </button>
+
+    <TodoDeleteModal
+      :isVisible="isModalVisible"
+      @confirm="confirmDeleteAll"
+      @cancel="showHideModal"
+    />
   </section>
 </template>
 

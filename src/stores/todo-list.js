@@ -9,6 +9,7 @@ export const useTodoListStore = defineStore("todoList", {
     todoList: [],
     filter: "all",
     sortOrder: "",
+    isModalVisible: false,
   }),
   getters: {
     filteredTodoList(state) {
@@ -70,13 +71,13 @@ export const useTodoListStore = defineStore("todoList", {
       this.todoList.push(newTask);
       this.saveToLocalStorage();
 
-      toast.success("Task added successfully!");
+      toast.success("Task Added Successfully!");
     },
 
     deleteTodoItem(id) {
       this.todoList = this.todoList.filter((todo) => todo.id !== id);
       this.saveToLocalStorage();
-      toast.error("Task deleted.");
+      toast.error("Task Deleted.");
     },
 
     editTodoItem(id, updatedText) {
@@ -86,6 +87,7 @@ export const useTodoListStore = defineStore("todoList", {
           : todo
       );
       this.saveToLocalStorage();
+      toast.success("Task Edited Successfully");
     },
 
     toggleCompleted(id) {
@@ -109,11 +111,13 @@ export const useTodoListStore = defineStore("todoList", {
     clearCompletedItems() {
       this.todoList = this.todoList.filter((todo) => !todo.isCompleted);
       this.saveToLocalStorage();
+      toast.success("Completed Items Deleted");
     },
 
     deleteAllTasks() {
       this.todoList = [];
       this.saveToLocalStorage();
+      toast.error("All Tasks Deleted");
     },
 
     generateUniqueId() {
@@ -126,6 +130,14 @@ export const useTodoListStore = defineStore("todoList", {
 
     getCurrentFilter() {
       return this.filter;
+    },
+
+    openModal() {
+      this.isModalVisible = true;
+    },
+
+    closeModal() {
+      this.isModalVisible = false;
     },
   },
 });

@@ -10,15 +10,11 @@ const totalTasks = computed(() => todoListStore.todoList.length);
 const completedTasks = computed(
   () => todoListStore.todoList.filter((task) => task.isCompleted).length
 );
-
-// Log values to check
-console.log("Total tasks:", totalTasks.value);
-console.log("Completed tasks:", completedTasks.value);
 </script>
 
 <template>
   <article
-    class="p-4 space-y-2 dark:text-slate-50 my-4 border-b border-dotted border-slate-500"
+    class="px-4 pb-4 space-y-2 dark:text-slate-50 my-4 border-b border-dotted border-slate-500"
   >
     <h3 class="text-base text-slate-800 dark:text-slate-50">Progress Bar</h3>
     <div class="flex flex-wrap gap-2">

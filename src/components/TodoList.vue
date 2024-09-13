@@ -1,6 +1,11 @@
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useTodoListStore } from "@/stores/todo-list";
+import TodoDeleteModal from "./TodoDeleteModal.vue";
+
+// REFS
+const isModalVisible = ref(false);
+const selectedTaskId = ref(null);
 
 // MOUNTED
 onMounted(() => {
@@ -10,6 +15,19 @@ onMounted(() => {
 
 // STORE
 const todoListStore = useTodoListStore();
+
+// METHODS
+const showHideModal = (taskId = null) => {
+  selectedTaskId.value = taskId;
+  isModalVisible.value = !isModalVisible.value;
+};
+
+const confirmDeleteTask = () => {
+  if (selectedTaskId.value) {
+    todoListStore.deleteTodoItem(selectedTaskId.value);
+  }
+  showHideModal();
+};
 
 // COMPUTED
 const isTodoListEmpty = computed(() => !todoListStore.todoList.length);
@@ -103,7 +121,7 @@ const isActiveListEmpty = computed(
             {{ task.isEditing ? "cancel" : "edit" }}
           </button>
           <button
-            @click="todoListStore.deleteTodoItem(task.id)"
+            @click="showHideModal(task.id)"
             class="text-red-500 hover:scale-110 duration-200"
           >
             delete
@@ -123,6 +141,11 @@ const isActiveListEmpty = computed(
         Clear Completed
       </button>
     </section>
+    <TodoDeleteModal
+      :isVisible="isModalVisible"
+      @confirm="confirmDeleteTask"
+      @cancel="showHideModal"
+    />
   </article>
 </template>
 
