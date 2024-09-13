@@ -4,6 +4,10 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+  displayMsg: {
+    type: String,
+    required: true,
+  },
 });
 
 const emit = defineEmits(["confirm", "cancel"]);
@@ -20,7 +24,7 @@ const onCancel = () => emit("cancel");
     <div
       class="text-slate-800 dark:text-slate-50 bg-white dark:bg-slate-800 rounded-md p-6 max-w-sm w-2/3 flex flex-col items-center justify-center"
     >
-      <p class="text-center">Do you really want to delete this?</p>
+      <p class="text-center">{{ displayMsg }}</p>
 
       <div class="flex justify-end space-x-2 mt-4">
         <button

@@ -6,6 +6,7 @@ import TodoDeleteModal from "./TodoDeleteModal.vue";
 // REFS
 const isModalVisible = ref(false);
 const selectedTaskId = ref(null);
+const displayMsg = "Do you really want to delete this task?";
 
 // MOUNTED
 onMounted(() => {
@@ -145,6 +146,7 @@ const isActiveListEmpty = computed(
     </section>
     <TodoDeleteModal
       :isVisible="isModalVisible"
+      :displayMsg="displayMsg"
       @confirm="confirmDeleteTask"
       @cancel="showHideModal"
     />

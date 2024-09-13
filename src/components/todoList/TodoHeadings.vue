@@ -5,7 +5,7 @@ import TodoDeleteModal from "./TodoDeleteModal.vue";
 import { useToast } from "vue-toastification";
 
 const toast = useToast();
-
+const displayMsg = "Do you really want to delete all tasks?";
 // REFS
 const isModalVisible = ref(false);
 
@@ -55,6 +55,7 @@ const todoListStore = useTodoListStore();
 
     <TodoDeleteModal
       :isVisible="isModalVisible"
+      :displayMsg="displayMsg"
       @confirm="confirmDeleteAll"
       @cancel="showHideModal"
     />

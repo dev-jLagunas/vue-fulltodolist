@@ -2,12 +2,14 @@
 import TodoHeader from "@/components/todoList/TodoHeader.vue";
 import TodoInput from "@/components/todoList/TodoInput.vue";
 import TodoList from "@/components/todoList/TodoList.vue";
-import TodoFilter from "@/components/todoList/TodoFilter.vue";
-import TodoDate from "@/components/todoList/TodoDate.vue";
+import TodoListFilter from "@/components/todoList/TodoFilter.vue";
+import TodoCurrentDate from "@/components/todoList/TodoDate.vue";
 import TodoHeadings from "@/components/todoList/TodoHeadings.vue";
-import TodoProgress from "@/components/todoList/TodoProgress.vue";
+import TodoProgressBar from "@/components/todoList/TodoProgress.vue";
 import UserName from "@/components/user/UserName.vue";
-import UserLogin from "@/components/user/UserLoginModal.vue";
+import UserLoginModal from "@/components/user/UserLoginModal.vue";
+import TodoFooter from "@/components/todoList/TodoFooter.vue";
+
 import { useUserAuthStore } from "@/stores/user-auth";
 
 // STORE
@@ -19,7 +21,7 @@ userAuthStore.loadUserFromLocalStorage();
   <div
     class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto relative"
   >
-    <TodoDate />
+    <TodoCurrentDate />
     <TodoHeader />
     <TodoInput />
   </div>
@@ -27,12 +29,15 @@ userAuthStore.loadUserFromLocalStorage();
   <main
     class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto"
   >
-    <TodoProgress />
+    <TodoProgressBar />
     <TodoHeadings />
     <TodoList />
-    <TodoFilter />
+    <TodoListFilter />
   </main>
-  <UserLogin
+  <footer>
+    <TodoFooter />
+  </footer>
+  <UserLoginModal
     v-if="userAuthStore.isModalVisible"
     @close="userAuthStore.closeModal"
   />
