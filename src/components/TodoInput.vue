@@ -4,7 +4,7 @@ import { useTodoListStore } from "@/stores/todo-list";
 
 // REFS
 const taskText = ref("");
-const priorityLevel = ref("");
+const priorityLevel = ref("mandatory");
 
 // STORE
 const todoListStore = useTodoListStore();
@@ -14,7 +14,7 @@ const addTask = () => {
   if (taskText.value.trim() && priorityLevel.value) {
     todoListStore.addTodoItem(taskText.value, priorityLevel.value);
     taskText.value = "";
-    priorityLevel.value = "";
+    priorityLevel.value = "mandatory";
   }
 };
 </script>
@@ -35,7 +35,7 @@ const addTask = () => {
         @keyup.enter="addTask"
       />
       <button
-        class="text-slate-800 dark:bg-transparent before:bg-orange-400 dark:before:bg-blue-800 rounded-r-sm h-full dark:text-slate-50"
+        class="bg-orange-400 text-slate-50 px-4 dark:bg-blue-800 rounded-r-sm text-sm"
         @click="addTask"
       >
         Add
@@ -76,38 +76,4 @@ const addTask = () => {
   </fieldset>
 </template>
 
-<style scoped>
-button {
-  z-index: 1;
-  position: relative;
-  font-size: inherit;
-  font-family: inherit;
-  padding: 0.5em 1em;
-  outline: none;
-  border: none;
-  overflow: hidden;
-  transition: color 0.4s ease-in-out;
-}
-
-button::before {
-  content: "";
-  z-index: -1;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 1em;
-  height: 1em;
-  border-radius: 50%;
-  transform-origin: center;
-  transform: translate3d(-50%, -50%, 0) scale3d(0, 0, 0);
-  transition: transform 0.45s ease-in-out;
-}
-
-button:hover {
-  cursor: pointer;
-}
-
-button:hover::before {
-  transform: translate3d(-50%, -50%, 0) scale3d(15, 15, 15);
-}
-</style>
+<style scoped></style>

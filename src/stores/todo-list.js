@@ -1,5 +1,8 @@
 import { defineStore } from "pinia";
 import confetti from "canvas-confetti";
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
 
 export const useTodoListStore = defineStore("todoList", {
   state: () => ({
@@ -66,11 +69,14 @@ export const useTodoListStore = defineStore("todoList", {
 
       this.todoList.push(newTask);
       this.saveToLocalStorage();
+
+      toast.success("Task added successfully!");
     },
 
     deleteTodoItem(id) {
       this.todoList = this.todoList.filter((todo) => todo.id !== id);
       this.saveToLocalStorage();
+      toast.error("Task deleted.");
     },
 
     editTodoItem(id, updatedText) {
@@ -102,6 +108,11 @@ export const useTodoListStore = defineStore("todoList", {
 
     clearCompletedItems() {
       this.todoList = this.todoList.filter((todo) => !todo.isCompleted);
+      this.saveToLocalStorage();
+    },
+
+    deleteAllTasks() {
+      this.todoList = [];
       this.saveToLocalStorage();
     },
 
