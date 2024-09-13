@@ -6,8 +6,11 @@ const isDark = useDark();
 
 <template>
   <header
-    class="px-2 flex justify-between items-center flex-col py-2 mt-4 rounded-md text-slate-800 dark:text-slate-50"
+    class="px-2 flex justify-between items-center flex-col py-2 mt-8 rounded-md text-slate-800 dark:text-slate-50"
   >
+    <div class="absolute top-2 right-3">
+      <button>Login<i class="fa-solid fa-right-to-bracket pl-2"></i></button>
+    </div>
     <h1 class="font-bold tracking-widest text-4xl text-center mb-4">
       Daily Todo List
     </h1>

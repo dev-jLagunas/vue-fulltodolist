@@ -1,11 +1,11 @@
 <script setup>
-import TodoHeader from "@/components/TodoHeader.vue";
-import TodoInput from "@/components/TodoInput.vue";
-import TodoList from "@/components/TodoList.vue";
-import TodoFilter from "@/components/TodoFilter.vue";
-import TodoDate from "@/components/TodoDate.vue";
-import TodoHeadings from "@/components/TodoHeadings.vue";
-import TodoProgress from "@/components/TodoProgress.vue";
+import TodoHeader from "@/components/todoList/TodoHeader.vue";
+import TodoInput from "@/components/todoList/TodoInput.vue";
+import TodoList from "@/components/todoList/TodoList.vue";
+import TodoFilter from "@/components/todoList/TodoFilter.vue";
+import TodoDate from "@/components/todoList/TodoDate.vue";
+import TodoHeadings from "@/components/todoList/TodoHeadings.vue";
+import TodoProgress from "@/components/todoList/TodoProgress.vue";
 import UserName from "@/components/UserName.vue";
 </script>
 
