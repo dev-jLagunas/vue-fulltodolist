@@ -12,6 +12,7 @@ import { useUserAuthStore } from "@/stores/user-auth";
 
 // STORE
 const userAuthStore = useUserAuthStore();
+userAuthStore.loadUserFromLocalStorage();
 </script>
 
 <template>

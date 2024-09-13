@@ -23,6 +23,21 @@ export const useUserAuthStore = defineStore("userAuth", {
       this.isModalVisible = false;
     },
 
+    saveUserToLocalStorage() {
+      if (this.user) {
+        localStorage.setItem("user", JSON.stringify(this.user));
+      } else {
+        localStorage.removeItem("user");
+      }
+    },
+
+    loadUserFromLocalStorage() {
+      const savedUser = JSON.parse(localStorage.getItem("user"));
+      if (savedUser) {
+        this.user = savedUser;
+      }
+    },
+
     async login(email, password) {
       try {
         const userCredential = await signInWithEmailAndPassword(
@@ -31,6 +46,7 @@ export const useUserAuthStore = defineStore("userAuth", {
           password
         );
         this.user = userCredential.user;
+        this.saveUserToLocalStorage();
         this.closeLoginModal();
       } catch (error) {
         console.error("Login error:", error);
@@ -45,6 +61,7 @@ export const useUserAuthStore = defineStore("userAuth", {
           password
         );
         this.user = userCredential.user;
+        this.saveUserToLocalStorage();
         this.closeLoginModal();
       } catch (error) {
         console.error("Signup error:", error);
@@ -55,6 +72,7 @@ export const useUserAuthStore = defineStore("userAuth", {
       try {
         await signOut(auth);
         this.user = null;
+        this.saveUserToLocalStorage();
       } catch (error) {
         console.error("Logout error:", error);
       }

@@ -8,6 +8,13 @@ const isDark = useDark();
 const userAuthStore = useUserAuthStore();
 
 // METHODS
+const handleAuthAction = () => {
+  if (userAuthStore.user) {
+    userAuthStore.logout();
+  } else {
+    userAuthStore.openLoginModal();
+  }
+};
 </script>
 
 <template>
@@ -15,7 +22,7 @@ const userAuthStore = useUserAuthStore();
     class="px-2 flex justify-between items-center flex-col py-2 mt-8 rounded-md text-slate-800 dark:text-slate-50"
   >
     <div class="absolute top-2 right-3">
-      <button @click="userAuthStore.openLoginModal">
+      <button @click="handleAuthAction">
         {{ userAuthStore.user ? "Logout" : "Login"
         }}<i class="fa-solid fa-right-to-bracket pl-2"></i>
       </button>
