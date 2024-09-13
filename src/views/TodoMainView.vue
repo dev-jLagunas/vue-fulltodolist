@@ -34,7 +34,9 @@ userAuthStore.loadUserFromLocalStorage();
     <TodoList />
     <TodoListFilter />
   </main>
-  <footer>
+  <footer
+    class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto h-52"
+  >
     <TodoFooter />
   </footer>
   <UserLoginModal
