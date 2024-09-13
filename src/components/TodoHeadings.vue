@@ -36,7 +36,7 @@ const todoListStore = useTodoListStore();
     </button>
     <div class="relative flex flex-col items-center justify-center">
       <p
-        class="text-slate-50 dark:text-slate-50 px-14 py-3 rounded-sm bg-slate-800"
+        class="text-slate-50 dark:text-slate-50 px-14 sm:px-32 py-3 rounded-sm bg-slate-800"
       >
         Tasks
       </p>

@@ -101,7 +101,7 @@ const isActiveListEmpty = computed(
           type="text"
           v-model="task.taskText"
           @keyup.enter="todoListStore.editTodoItem(task.id, task.taskText)"
-          class="text-slate-800"
+          class="pl-2 bg-slate-800 text-slate-50 dark:bg-slate-50 dark:text-slate-800 rounded-sm"
         />
         <span
           v-else
@@ -118,13 +118,13 @@ const isActiveListEmpty = computed(
             @click="task.isEditing = !task.isEditing"
             class="mr-2 text-amber-600 hover:scale-110 duration-200"
           >
-            {{ task.isEditing ? "cancel" : "edit" }}
+            {{ task.isEditing ? "Cancel" : "Edit" }}
           </button>
           <button
             @click="showHideModal(task.id)"
             class="text-red-500 hover:scale-110 duration-200"
           >
-            delete
+            Delete
           </button>
         </div>
       </li>
@@ -136,7 +136,7 @@ const isActiveListEmpty = computed(
       <button
         v-if="hasCompletedItems"
         @click="todoListStore.clearCompletedItems"
-        class="hover:scale-110 duration-200"
+        class="hover:scale-110 duration-300 dark:text-slate-800 dark:bg-slate-50 px-2 rounded-sm bg-slate-800 text-slate-50"
       >
         Clear Completed
       </button>

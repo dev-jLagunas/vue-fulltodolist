@@ -16,7 +16,15 @@ const completedTasks = computed(
   <article
     class="px-4 pb-4 space-y-2 dark:text-slate-50 my-4 border-b border-dotted border-slate-500"
   >
-    <h3 class="text-base text-slate-800 dark:text-slate-50">Progress Bar</h3>
+    <div class="flex justify-between items-center">
+      <h3
+        class="text-base text-slate-800 dark:text-slate-50 flex justify-between"
+      >
+        Progress Bar
+      </h3>
+      <p class="font-bold text-2xl">{{ completedTasks }}</p>
+    </div>
+
     <div class="flex flex-wrap gap-2">
       <span
         v-for="(task, index) in totalTasks"
