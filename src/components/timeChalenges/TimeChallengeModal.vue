@@ -72,6 +72,7 @@ const startChallenge = () => {
         <h2>You picked: {{ selectedTask.taskText }}</h2>
         <p>Select a time limit:</p>
         <div>
+          <button @click="selectTimeLimit(1)">1 min</button>
           <button @click="selectTimeLimit(5)">5 min</button>
           <button @click="selectTimeLimit(15)">15 min</button>
           <button @click="selectTimeLimit(30)">30 min</button>
