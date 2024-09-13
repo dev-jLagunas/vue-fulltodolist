@@ -16,7 +16,8 @@ const userAuthStore = useUserAuthStore();
   >
     <div class="absolute top-2 right-3">
       <button @click="userAuthStore.openLoginModal">
-        Login<i class="fa-solid fa-right-to-bracket pl-2"></i>
+        {{ userAuthStore.user ? "Logout" : "Login"
+        }}<i class="fa-solid fa-right-to-bracket pl-2"></i>
       </button>
     </div>
     <h1 class="font-bold tracking-widest text-4xl text-center mb-4">

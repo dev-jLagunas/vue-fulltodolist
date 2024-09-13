@@ -5,7 +5,34 @@ import { useUserAuthStore } from "@/stores/user-auth";
 // STORE
 const userAuthStore = useUserAuthStore();
 
+// REFS
+const email = ref("");
+const password = ref("");
+const confirmPassword = ref("");
 const isSigningUp = ref(false);
+
+// METHODS
+const handleLogin = () => {
+  console.log("Email:", email.value); // Log email
+  console.log("Password:", password.value); // Log password
+  userAuthStore.login(email.value, password.value);
+};
+
+const handleSignup = () => {
+  if (password.value === confirmPassword.value) {
+    userAuthStore.signup(email.value, password.value);
+  } else {
+    console.error("Passwords do not match");
+  }
+};
+
+const useAsGuest = () => {
+  if (userAuthStore.user) {
+    userAuthStore.logout();
+  }
+
+  userAuthStore.closeLoginModal();
+};
 </script>
 
 <template>
@@ -32,7 +59,7 @@ const isSigningUp = ref(false);
       <!-- Login Form -->
       <form
         v-if="!isSigningUp"
-        @submit.prevent
+        @submit.prevent="handleLogin"
         class="mt-4 text-slate-800 dark:text-slate-50"
       >
         <label for="email-login" class="block">Email</label>
@@ -42,6 +69,7 @@ const isSigningUp = ref(false);
           placeholder="joe_mama@example.com"
           class="mt-1 block w-full rounded-sm pl-2 py-1 bg-slate-800 text-slate-50 dark:bg-slate-50 dark:text-slate-800"
           aria-required="true"
+          v-model="email"
           required
         />
 
@@ -52,6 +80,7 @@ const isSigningUp = ref(false);
           placeholder="********"
           class="mt-1 block w-full rounded-sm pl-2 py-1 bg-slate-800 text-slate-50 dark:bg-slate-50 dark:text-slate-800"
           aria-required="true"
+          v-model="password"
           required
         />
         <div class="mx-auto w-max">
@@ -67,7 +96,7 @@ const isSigningUp = ref(false);
       <!-- Sign Up Form -->
       <form
         v-else
-        @submit.prevent
+        @submit.prevent="handleSignup"
         class="mt-4 text-slate-800 dark:text-slate-50"
       >
         <label for="email-signup" class="block">Email</label>
@@ -77,6 +106,7 @@ const isSigningUp = ref(false);
           placeholder="joe_mama@example.com"
           class="mt-1 block w-full rounded-sm pl-2 py-1 bg-slate-800 text-slate-50 dark:bg-slate-50 dark:text-slate-800"
           aria-required="true"
+          v-model="email"
           required
         />
 
@@ -87,6 +117,7 @@ const isSigningUp = ref(false);
           placeholder="........"
           class="mt-1 block w-full rounded-sm pl-2 py-1 bg-slate-800 text-slate-50 dark:bg-slate-50 dark:text-slate-800"
           aria-required="true"
+          v-model="password"
           required
         />
 
@@ -99,6 +130,7 @@ const isSigningUp = ref(false);
           placeholder="********"
           class="mt-1 block w-full rounded-sm pl-2 py-1 bg-slate-800 text-slate-50 dark:bg-slate-50 dark:text-slate-800"
           aria-required="true"
+          v-model="confirmPassword"
           required
         />
 
@@ -123,7 +155,10 @@ const isSigningUp = ref(false);
             : "Don’t have an account? Sign up"
         }}
       </button>
-      <button class="mt-4 w-full underline underline-offset-4 text-sm">
+      <button
+        class="mt-4 w-full underline underline-offset-4 text-sm"
+        @click="useAsGuest"
+      >
         Use as a guest
       </button>
     </article>

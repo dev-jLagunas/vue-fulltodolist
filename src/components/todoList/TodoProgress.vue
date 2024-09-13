@@ -22,7 +22,9 @@ const completedTasks = computed(
       >
         Progress Bar
       </h3>
-      <p class="font-bold text-2xl">{{ completedTasks }}</p>
+      <p class="font-bold text-lg">
+        {{ completedTasks }} <span class="font-light text-base">Done</span>
+      </p>
     </div>
 
     <div class="flex flex-wrap gap-2">
