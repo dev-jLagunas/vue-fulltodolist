@@ -15,7 +15,7 @@ const onCancel = () => emit("cancel");
 <template>
   <div
     v-if="isVisible"
-    class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-10"
+    class="fixed inset-0 bg-slate-600 bg-opacity-50 flex justify-center items-center z-10"
   >
     <div
       class="text-slate-800 dark:text-slate-50 bg-white dark:bg-slate-800 rounded-md p-6 max-w-sm w-2/3 flex flex-col items-center justify-center"

@@ -25,6 +25,7 @@ html {
   height: 100vh;
   background-color: #f8eded;
   font-family: "SUSE", sans-serif;
+  margin-bottom: 10rem;
 }
 
 html.dark {

@@ -136,7 +136,7 @@ const isActiveListEmpty = computed(
       <button
         v-if="hasCompletedItems"
         @click="todoListStore.clearCompletedItems"
-        class="hover:scale-110 duration-300 dark:text-slate-800 dark:bg-slate-50 px-2 rounded-sm bg-slate-800 text-slate-50"
+        class="hover:scale-110 duration-300 dark:text-slate-800 dark:bg-slate-50 px-2 py-1 rounded-sm bg-slate-800 text-slate-50 text-xs sm:text-base"
       >
         Clear Completed
       </button>

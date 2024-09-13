@@ -6,7 +6,12 @@ import TodoFilter from "@/components/todoList/TodoFilter.vue";
 import TodoDate from "@/components/todoList/TodoDate.vue";
 import TodoHeadings from "@/components/todoList/TodoHeadings.vue";
 import TodoProgress from "@/components/todoList/TodoProgress.vue";
-import UserName from "@/components/UserName.vue";
+import UserName from "@/components/user/UserName.vue";
+import UserLogin from "@/components/user/UserLoginModal.vue";
+import { useUserAuthStore } from "@/stores/user-auth";
+
+// STORE
+const userAuthStore = useUserAuthStore();
 </script>
 
 <template>
@@ -26,4 +31,8 @@ import UserName from "@/components/UserName.vue";
     <TodoList />
     <TodoFilter />
   </main>
+  <UserLogin
+    v-if="userAuthStore.isModalVisible"
+    @close="userAuthStore.closeModal"
+  />
 </template>
