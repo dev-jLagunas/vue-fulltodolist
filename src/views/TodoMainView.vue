@@ -8,8 +8,7 @@ import TodoHeadings from "@/components/todoList/TodoHeadings.vue";
 import TodoProgressBar from "@/components/todoList/TodoProgress.vue";
 import UserName from "@/components/user/UserName.vue";
 import UserLoginModal from "@/components/user/UserLoginModal.vue";
-import TodoFooter from "@/components/todoList/TodoFooter.vue";
-
+import TimeChallenge from "@/components/timeChalenges/TimeChallengeDisplay.vue";
 import { useUserAuthStore } from "@/stores/user-auth";
 
 // STORE
@@ -37,7 +36,7 @@ userAuthStore.loadUserFromLocalStorage();
   <footer
     class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto h-52"
   >
-    <TodoFooter />
+    <TimeChallenge />
   </footer>
   <UserLoginModal
     v-if="userAuthStore.isModalVisible"

@@ -1,9 +1,12 @@
 <script setup>
 import { computed } from "vue";
 import { useTodoListStore } from "@/stores/todo-list";
+import { useTimeChallengeStore } from "@/stores/time-challenge";
+import TimeChallengeModal from "@/components/timeChalenges/TimeChallengeModal.vue";
 
 // STORE
 const todoListStore = useTodoListStore();
+const timeChallengeStore = useTimeChallengeStore();
 
 // COMPUTED
 const totalTasks = computed(() => todoListStore.todoList.length);
@@ -38,11 +41,15 @@ const completedTasks = computed(
         }"
       ></span>
     </div>
-    <button class="custom-btn absolute right-2 -bottom-5 bg-red-500 h-10 w-12">
+    <button
+      class="custom-btn absolute right-2 -bottom-5 bg-red-500 h-10 w-12"
+      @click="timeChallengeStore.openModal"
+    >
       <i class="fa-solid fa-stopwatch sign text-slate-50 text-2xl"></i>
       <div class="text font-bold">challenge</div>
     </button>
   </article>
+  <TimeChallengeModal />
 </template>
 
 <style scoped>
