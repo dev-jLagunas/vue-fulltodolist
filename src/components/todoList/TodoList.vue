@@ -67,11 +67,13 @@ const isActiveListEmpty = computed(
 
 <template>
   <article class="text-slate-800 dark:text-slate-50">
-    <p v-if="isTodoListEmpty" class="text-center text-lg mt-4">List is empty</p>
-    <p v-else-if="isCompletedListEmpty" class="text-center text-lg mt-4">
+    <p v-if="isTodoListEmpty" class="text-center text-lg mt-12">
+      List is empty
+    </p>
+    <p v-else-if="isCompletedListEmpty" class="text-center text-lg mt-12">
       No completed tasks yet
     </p>
-    <p v-else-if="isActiveListEmpty" class="text-center text-lg mt-4">
+    <p v-else-if="isActiveListEmpty" class="text-center text-lg mt-12">
       Active list is empty
     </p>
     <ul v-else class="py-4">
