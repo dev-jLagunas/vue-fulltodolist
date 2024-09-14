@@ -3,7 +3,7 @@
 <template>
   <!-- This is a codepen made by user:Hisami Kurati. You can see more of there work here:https://codepen.io/hisamikurita -->
   <div
-    class="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-10 duration-700"
+    class="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-10"
   >
     <div class="animation01">
       <div class="rhombus_small">

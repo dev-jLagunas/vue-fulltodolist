@@ -67,7 +67,7 @@ const confirmClearPoints = () => {
       <h2
         class="text-slate-800 dark:text-slate-50 text-center my-2 pb-2 text-lg font-bold border-b border-b-slate-500 border-dotted"
       >
-        Active Time Challenge
+        Time Challenge
       </h2>
     </header>
 

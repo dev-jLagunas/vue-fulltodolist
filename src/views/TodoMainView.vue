@@ -12,6 +12,7 @@ import UserLoginModal from "@/components/user/UserLoginModal.vue";
 import TimeChallenge from "@/components/timeChalenges/TimeChallengeDisplay.vue";
 import TimeChallengePoints from "@/components/timeChalenges/TimeChallengePoints.vue";
 import ChallengeSuccessModal from "@/components/timeChalenges/ChallengeSuccessModal.vue";
+import InitializeTutorial from "@/components/introTutorial/InitializeTutorial.vue";
 import { useUserAuthStore } from "@/stores/user-auth";
 import { useTimeChallengeStore } from "@/stores/time-challenge";
 
@@ -74,6 +75,6 @@ watch(
     v-if="userAuthStore.isModalVisible"
     @close="userAuthStore.closeModal"
   />
-  <!-- <button @click="toggleSuccessModal">open modal</button> -->
   <ChallengeSuccessModal v-if="isSuccessModalOpen" />
+  <InitializeTutorial />
 </template>
