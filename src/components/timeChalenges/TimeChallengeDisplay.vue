@@ -26,8 +26,8 @@ const progress = computed(() => timeChallengeStore.progress);
 const colorBack = computed(() => (isDark.value ? "#f8fafc" : "#1e293b"));
 
 // Watchers
-watch(activeChallenge, (newValue) => {
-  if (newValue) {
+watch(activeChallenge, (newValue, oldValue) => {
+  if (newValue && !timeChallengeStore.intervalId) {
     timeChallengeStore.startCountdown();
   }
 });

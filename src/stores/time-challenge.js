@@ -40,6 +40,8 @@ export const useTimeChallengeStore = defineStore("timeChallenge", {
     },
 
     startChallenge(selectedTask, selectedTimeLimit) {
+      this.clearCountdown();
+
       this.activeChallenge = {
         taskId: selectedTask.id,
         taskText: selectedTask.taskText,
@@ -79,8 +81,7 @@ export const useTimeChallengeStore = defineStore("timeChallenge", {
     },
 
     completeChallenge(outcome) {
-      clearInterval(this.intervalId);
-      this.intervalId = null;
+      this.clearCountdown();
       const todoListStore = useTodoListStore();
 
       if (outcome === "success") {
@@ -121,6 +122,8 @@ export const useTimeChallengeStore = defineStore("timeChallenge", {
         clearInterval(this.intervalId);
         this.intervalId = null;
       }
+      this.timeRemaining = null;
+      this.progress = 0;
     },
 
     clearOutcomeMessage() {
