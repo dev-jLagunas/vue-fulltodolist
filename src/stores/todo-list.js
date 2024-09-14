@@ -9,6 +9,7 @@ export const useTodoListStore = defineStore("todoList", {
     todoList: [],
     filter: "all",
     sortOrder: "",
+    currentMode: "todo",
     isModalVisible: false,
     selectedTaskIdForTimeChallenge: null,
   }),
@@ -41,6 +42,10 @@ export const useTodoListStore = defineStore("todoList", {
     },
   },
   actions: {
+    setMode(mode) {
+      this.currentMode = mode;
+    },
+
     saveToLocalStorage() {
       localStorage.setItem("todoList", JSON.stringify(this.todoList));
     },

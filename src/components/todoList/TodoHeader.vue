@@ -1,10 +1,13 @@
 <script setup>
+import { computed } from "vue";
 import { useDark } from "@vueuse/core";
+import { useTodoListStore } from "@/stores/todo-list";
 import { useUserAuthStore } from "@/stores/user-auth";
 
 const isDark = useDark();
 
-// STORE
+// STORES
+const todoListStore = useTodoListStore();
 const userAuthStore = useUserAuthStore();
 
 // METHODS
@@ -15,6 +18,13 @@ const handleAuthAction = () => {
     userAuthStore.openLoginModal();
   }
 };
+
+// COMPUTED
+const headerText = computed(() => {
+  return todoListStore.currentMode === "todo"
+    ? "Today's Todo List"
+    : "Today's Shopping List";
+});
 </script>
 
 <template>
@@ -28,7 +38,7 @@ const handleAuthAction = () => {
       </button>
     </div>
     <h1 class="font-bold tracking-widest text-4xl text-center mb-4">
-      Daily Todo List
+      {{ headerText }}
     </h1>
 
     <label
@@ -52,6 +62,24 @@ const handleAuthAction = () => {
       </span>
       <span>Dark</span>
     </label>
+    <div
+      class="flex divide-x rounded text-slate-800 dark:text-slate-100 divide-slate-500 mt-4 border border-slate-500 text-sm"
+    >
+      <button
+        type="button"
+        class="px-3 py-1 hover:bg-slate-800 hover:text-slate-50 dark:hover:bg-slate-50 dark:hover:text-slate-800 duration-500"
+        @click="todoListStore.setMode('todo')"
+      >
+        <i class="fa-solid fa-list-ul"></i>
+      </button>
+      <button
+        type="button"
+        class="px-3 py-1 hover:bg-slate-800 hover:text-slate-50 dark:hover:bg-slate-50 dark:hover:text-slate-800 duration-500"
+        @click="todoListStore.setMode('shopping')"
+      >
+        <i class="fa-solid fa-cart-shopping"></i>
+      </button>
+    </div>
   </header>
 </template>
 

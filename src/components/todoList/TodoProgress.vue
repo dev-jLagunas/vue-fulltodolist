@@ -13,6 +13,11 @@ const totalTasks = computed(() => todoListStore.todoList.length);
 const completedTasks = computed(
   () => todoListStore.todoList.filter((task) => task.isCompleted).length
 );
+const headerText = computed(() => {
+  return todoListStore.currentMode === "todo"
+    ? "Progress Bar"
+    : "Item's Purchased";
+});
 </script>
 
 <template>
@@ -23,14 +28,14 @@ const completedTasks = computed(
       <h3
         class="text-base text-slate-800 dark:text-slate-50 flex justify-between"
       >
-        Progress Bar
+        {{ headerText }}
       </h3>
-      <p class="font-bold text-lg">
+      <p class="font-bold text-lg text-slate-800 dark:text-slate-50">
         {{ completedTasks }} <span class="font-light text-base">Done</span>
       </p>
     </div>
 
-    <div class="flex flex-wrap gap-2 py-4">
+    <div class="flex flex-wrap gap-2 py-4" v-if="todoListStore.todoList.length">
       <span
         v-for="(task, index) in totalTasks"
         :key="index"
@@ -41,6 +46,7 @@ const completedTasks = computed(
         }"
       ></span>
     </div>
+    <p v-else class="text-slate-800 dark:text-slate-50">List is empty</p>
     <button
       class="custom-btn absolute right-2 -bottom-5 bg-red-500 h-10 w-12"
       @click="timeChallengeStore.openModal"

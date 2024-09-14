@@ -1,8 +1,18 @@
 <script setup>
+import { computed } from "vue";
 import { useTodoListStore } from "@/stores/todo-list";
 
 // STORE
 const todoListStore = useTodoListStore();
+
+// COMPUTED
+const activeText = computed(() => {
+  return todoListStore.currentMode === "todo" ? "Active" : "Unpurchased";
+});
+
+const completedText = computed(() => {
+  return todoListStore.currentMode === "todo" ? "Completed" : "Purchased";
+});
 </script>
 
 <template>
@@ -19,13 +29,13 @@ const todoListStore = useTodoListStore();
       @click="todoListStore.setFilter('active')"
       class="before:bg-orange-400 dark:before:bg-blue-800"
     >
-      Active
+      {{ activeText }}
     </button>
     <button
       @click="todoListStore.setFilter('completed')"
       class="before:bg-orange-400 dark:before:bg-blue-800"
     >
-      Completed
+      {{ completedText }}
     </button>
     <select
       name="sort-select"

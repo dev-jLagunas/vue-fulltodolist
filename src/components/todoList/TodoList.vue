@@ -38,9 +38,6 @@ const remainingItems = computed(
 const hasCompletedItems = computed(() =>
   todoListStore.todoList.some((task) => task.isCompleted)
 );
-const selectedTaskForChallengeId = computed(
-  () => todoListStore.selectedTaskForChallengeId
-);
 
 const sortedAndFilteredTasks = computed(() => {
   const filtered = todoListStore.filteredTodoList;
@@ -66,6 +63,10 @@ const isActiveListEmpty = computed(
     todoListStore.filter === "active" &&
     !todoListStore.todoList.some((task) => !task.isCompleted)
 );
+
+const itemsText = computed(() => {
+  return todoListStore.currentMode === "todo" ? "Tasks" : "Items";
+});
 </script>
 
 <template>
@@ -140,7 +141,8 @@ const isActiveListEmpty = computed(
     </ul>
     <section class="flex justify-between items-center px-4 mt-4 pb-2">
       <p>
-        Items Remaining: <span class="font-bold">{{ remainingItems }}</span>
+        {{ itemsText }} remaining:
+        <span class="font-bold">{{ remainingItems }}</span>
       </p>
       <button
         v-if="hasCompletedItems"
