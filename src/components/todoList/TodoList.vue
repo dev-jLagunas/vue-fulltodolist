@@ -115,7 +115,7 @@ const isActiveListEmpty = computed(
         >
           <i
             v-if="task.id === todoListStore.selectedTaskForChallengeId"
-            class="fa-solid fa-stopwatch text-cyan-600 pb-1"
+            class="fa-solid fa-stopwatch text-cyan-600 pb-1 animate-bounce"
           ></i>
           {{ task.taskText.toUpperCase() }}
         </span>

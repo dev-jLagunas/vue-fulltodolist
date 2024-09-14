@@ -94,7 +94,12 @@ const cancelChallenge = () => {
     </section>
 
     <aside v-if="timeChallengeStore.totalPoints">
-      <p>Total Points: {{ timeChallengeStore.totalPoints }}</p>
+      <p>Points: {{ timeChallengeStore.totalPoints }}</p>
     </aside>
+    <section class="border-t border-dotted border-slate-500 mt-4 text-center">
+      <button class="bg-red-500 text-slate-50 px-4 my-4 rounded-sm">
+        Clear Points
+      </button>
+    </section>
   </article>
 </template>

@@ -9,6 +9,7 @@ import TodoProgressBar from "@/components/todoList/TodoProgress.vue";
 import UserName from "@/components/user/UserName.vue";
 import UserLoginModal from "@/components/user/UserLoginModal.vue";
 import TimeChallenge from "@/components/timeChalenges/TimeChallengeDisplay.vue";
+import TimeChallengePoints from "@/components/timeChalenges/TimeChallengePoints.vue";
 import { useUserAuthStore } from "@/stores/user-auth";
 
 // STORE
@@ -34,8 +35,9 @@ userAuthStore.loadUserFromLocalStorage();
     <TodoListFilter />
   </main>
   <footer
-    class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto"
+    class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto relative"
   >
+    <TimeChallengePoints />
     <TimeChallenge />
   </footer>
   <UserLoginModal
