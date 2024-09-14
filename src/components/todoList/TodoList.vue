@@ -114,7 +114,7 @@ const isActiveListEmpty = computed(
           class="text-xs text-center md:text-base flex flex-col"
         >
           <i
-            v-if="task.id === selectedTaskForChallengeId"
+            v-if="task.id === todoListStore.selectedTaskForChallengeId"
             class="fa-solid fa-stopwatch text-cyan-600 pb-1"
           ></i>
           {{ task.taskText.toUpperCase() }}

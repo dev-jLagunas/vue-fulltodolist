@@ -4,35 +4,37 @@ import { useDark } from "@vueuse/core";
 import { useTimeChallengeStore } from "@/stores/time-challenge";
 import { CircleProgressBar } from "circle-progress.vue";
 
+// Handle Dark Mode
 const isDark = useDark();
 
-// STORE
+// Store
 const timeChallengeStore = useTimeChallengeStore();
 
-// COMPUTED
-const activeChallenge = computed(
-  () =>
-    timeChallengeStore.timeChallenges[
-      timeChallengeStore.timeChallenges.length - 1
-    ]
-);
-
+// Computed Properties
+const activeChallenge = computed(() => timeChallengeStore.activeChallenge); // Only one active challenge now
+const progress = computed(() => timeChallengeStore.progress);
 const colorBack = computed(() => (isDark.value ? "#f8fafc" : "#1e293b"));
 
-const progress = computed(() => {
-  return timeChallengeStore.progress;
-});
-
-// WATCHERS
+// Watchers
 watch(activeChallenge, (newValue) => {
   if (newValue) {
-    timeChallengeStore.startCountdown(newValue);
+    timeChallengeStore.startCountdown();
   }
 });
 
+// Lifecycle Hooks
 onUnmounted(() => {
   timeChallengeStore.clearCountdown();
 });
+
+// Methods
+const completeChallenge = () => {
+  timeChallengeStore.completeChallenge("success");
+};
+
+const cancelChallenge = () => {
+  timeChallengeStore.cancelChallenge();
+};
 </script>
 
 <template>
@@ -49,7 +51,7 @@ onUnmounted(() => {
       v-if="activeChallenge"
       class="text-slate-800 dark:text-slate-50 flex flex-col justify-center items-center relative"
     >
-      <p class="">
+      <p>
         Time Challenged Task<i
           class="fa-solid fa-share pl-2 rotate-90 text-cyan-600"
         ></i>
@@ -76,13 +78,12 @@ onUnmounted(() => {
       </p>
 
       <footer class="flex justify-center gap-8 w-full mt-4">
-        <button
-          @click="timeChallengeStore.clearCountdown"
-          class="text-red-500 text-lg"
-        >
+        <button @click="cancelChallenge" class="text-red-500 text-lg">
           Cancel
         </button>
-        <button class="text-green-500 text-lg">Complete</button>
+        <button @click="completeChallenge" class="text-green-500 text-lg">
+          Complete
+        </button>
       </footer>
     </section>
 
@@ -90,9 +91,8 @@ onUnmounted(() => {
       <p>No challenges currently</p>
     </section>
 
-    <!-- <aside>
-      <p>Time Challenge Statistics</p>
-    </aside> -->
+    <aside v-if="timeChallengeStore.totalPoints">
+      <p>Total Points: {{ timeChallengeStore.totalPoints }}</p>
+    </aside>
   </article>
 </template>
->

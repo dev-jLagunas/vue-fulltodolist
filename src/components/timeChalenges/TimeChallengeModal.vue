@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { useTimeChallengeStore } from "@/stores/time-challenge";
 import { useTodoListStore } from "@/stores/todo-list";
 
@@ -10,7 +10,6 @@ const todoListStore = useTodoListStore();
 // REFS
 const selectedTask = ref(null);
 const selectedTimeLimit = ref(null);
-// COMPUTED
 
 // METHODS
 const closeModal = () => {
@@ -21,33 +20,40 @@ const closeModal = () => {
 const activeTasks = computed(() =>
   todoListStore.filteredTodoList.filter((task) => !task.isCompleted)
 );
+
 const selectTask = (task) => {
   selectedTask.value = task;
 };
+
 const selectTimeLimit = (time) => {
   selectedTimeLimit.value = time;
 };
 
 const startChallenge = () => {
   if (selectedTask.value && selectedTimeLimit.value) {
-    const newTimeChallenge = {
-      id: `challenge-${Date.now()}`,
-      taskId: selectedTask.value.id,
-      taskText: selectedTask.value.taskText,
-      timeLimit: selectedTimeLimit.value,
-      startTime: new Date().toISOString(),
-      status: "in progress",
-      endTime: null,
-      timeRemaining: null,
-      score: null,
-      outcome: null,
-    };
-
-    timeChallengeStore.addTimeChallenge(newTimeChallenge);
-    todoListStore.setSelectedTaskForChallenge(selectedTask.value.id);
-    timeChallengeStore.closeModal();
+    if (!timeChallengeStore.activeChallenge) {
+      timeChallengeStore.startChallenge(
+        selectedTask.value,
+        selectedTimeLimit.value
+      );
+      todoListStore.setSelectedTaskForChallenge(selectedTask.value.id);
+      timeChallengeStore.closeModal();
+    } else {
+      console.warn("A time challenge is already in progress.");
+    }
   }
 };
+
+// WATCHERS
+watch(
+  () => timeChallengeStore.activeChallenge,
+  (newChallenge) => {
+    if (!newChallenge) {
+      selectedTask.value = null;
+      selectedTimeLimit.value = null;
+    }
+  }
+);
 </script>
 
 <template>
@@ -56,10 +62,9 @@ const startChallenge = () => {
     class="fixed inset-0 bg-slate-600 bg-opacity-50 flex justify-center items-center z-10"
   >
     <article class="h-64 w-2/3 bg-white">
-      <h1>lets set up your time challenge</h1>
+      <h1>Let's set up your time challenge</h1>
       <p>Pick the task you want to time challenge!</p>
 
-      <!-- Task list section: Visible until a task is picked -->
       <ul v-if="!selectedTask">
         <li v-for="task in activeTasks" :key="task.id">
           <button @click="selectTask(task)" class="">
@@ -67,7 +72,7 @@ const startChallenge = () => {
           </button>
         </li>
       </ul>
-      <!-- Only visible after task is picked -->
+
       <div v-else>
         <h2>You picked: {{ selectedTask.taskText }}</h2>
         <p>Select a time limit:</p>
@@ -87,12 +92,12 @@ const startChallenge = () => {
           v-if="selectedTask && selectedTimeLimit"
           @click="startChallenge"
         >
-          Start
+          Start Challenge
         </button>
       </div>
 
       <section></section>
-      <button @click="closeModal">close</button>
+      <button @click="closeModal">Close</button>
     </article>
   </div>
 </template>
