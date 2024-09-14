@@ -86,7 +86,9 @@ export const useTimeChallengeStore = defineStore("timeChallenge", {
 
       if (outcome === "success") {
         this.totalPoints += 25;
+        todoListStore.toggleCompleted(this.activeChallenge.taskId);
         this.outcomeMessage = "You did it! Here are 25 points";
+
         toast.success("Good job! points added");
       } else if (outcome === "canceled" || outcome === "timeout") {
         this.totalPoints -= 50;
@@ -100,6 +102,11 @@ export const useTimeChallengeStore = defineStore("timeChallenge", {
       this.timeRemaining = null;
       this.progress = 0;
 
+      this.saveToLocalStorage();
+    },
+
+    resetPoints() {
+      this.totalPoints = 0;
       this.saveToLocalStorage();
     },
 

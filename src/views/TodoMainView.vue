@@ -28,11 +28,8 @@ onMounted(() => {
   timeChallengeStore.loadFromLocalStorage();
 });
 
-let toggleSuccessModal = () => {
+const toggleSuccessModal = () => {
   isSuccessModalOpen.value = true;
-  setTimeout(() => {
-    isSuccessModalOpen.value = false;
-  }, 8000);
 };
 
 // WATCHER
@@ -41,6 +38,10 @@ watch(
   (newPoints) => {
     if (newPoints >= 100) {
       toggleSuccessModal();
+      setTimeout(() => {
+        timeChallengeStore.resetPoints();
+        isSuccessModalOpen.value = false;
+      }, 8000);
     }
   }
 );
