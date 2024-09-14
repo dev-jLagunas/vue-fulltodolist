@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import confetti from "canvas-confetti";
 import { useToast } from "vue-toastification";
+import { useTimeChallengeStore } from "./time-challenge";
 
 const toast = useToast();
 
@@ -97,6 +98,7 @@ export const useTodoListStore = defineStore("todoList", {
     },
 
     toggleCompleted(id) {
+      const timeChallengeStore = useTimeChallengeStore();
       this.todoList = this.todoList.map((todo) =>
         todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
       );
@@ -105,11 +107,14 @@ export const useTodoListStore = defineStore("todoList", {
         (todo) => todo.id === id && todo.isCompleted
       );
       if (completedTodo) {
+        timeChallengeStore.totalPoints += 10;
         confetti({
           particleCount: 100,
           spread: 70,
           origin: { y: 0.6 },
         });
+      } else {
+        timeChallengeStore.totalPoints -= 10;
       }
       this.saveToLocalStorage();
     },

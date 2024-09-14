@@ -16,7 +16,13 @@ const completedTasks = computed(
 const headerText = computed(() => {
   return todoListStore.currentMode === "todo"
     ? "Progress Bar"
-    : "Item's Purchased";
+    : "Items Purchased";
+});
+
+const doneText = computed(() => {
+  return todoListStore.currentMode === "todo"
+    ? "Tasks Done"
+    : "Items Purchased";
 });
 </script>
 
@@ -31,7 +37,8 @@ const headerText = computed(() => {
         {{ headerText }}
       </h3>
       <p class="font-bold text-lg text-slate-800 dark:text-slate-50">
-        {{ completedTasks }} <span class="font-light text-base">Done</span>
+        {{ completedTasks }}
+        <span class="font-light text-base">{{ doneText }}</span>
       </p>
     </div>
 
@@ -46,7 +53,9 @@ const headerText = computed(() => {
         }"
       ></span>
     </div>
-    <p v-else class="text-slate-800 dark:text-slate-50">List is empty</p>
+    <p v-else class="text-slate-800 dark:text-slate-50 text-center">
+      List is empty
+    </p>
     <button
       class="custom-btn absolute right-2 -bottom-5 bg-red-500 h-10 w-12"
       @click="timeChallengeStore.openModal"

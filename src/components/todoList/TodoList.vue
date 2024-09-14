@@ -71,9 +71,7 @@ const itemsText = computed(() => {
 
 <template>
   <article class="text-slate-800 dark:text-slate-50">
-    <p v-if="isTodoListEmpty" class="text-center text-lg mt-12">
-      List is empty
-    </p>
+    <p v-if="isTodoListEmpty" class="text-center mt-12">List is empty</p>
     <p v-else-if="isCompletedListEmpty" class="text-center text-lg mt-12">
       No completed tasks yet
     </p>

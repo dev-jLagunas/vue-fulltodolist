@@ -57,8 +57,9 @@ watch(
   </div>
   <UserName />
   <main
-    class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto"
+    class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto relative"
   >
+    <TimeChallengePoints />
     <TodoProgressBar />
     <TodoHeadings />
     <TodoList />
@@ -67,7 +68,6 @@ watch(
   <footer
     class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto relative"
   >
-    <TimeChallengePoints />
     <TimeChallenge />
   </footer>
   <UserLoginModal
