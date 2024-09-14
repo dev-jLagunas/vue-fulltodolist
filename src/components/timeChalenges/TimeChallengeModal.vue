@@ -44,7 +44,7 @@ const startChallenge = () => {
     };
 
     timeChallengeStore.addTimeChallenge(newTimeChallenge);
-    console.log(timeChallengeStore.timeChallenges);
+    todoListStore.setSelectedTaskForChallenge(selectedTask.value.id);
     timeChallengeStore.closeModal();
   }
 };

@@ -10,6 +10,7 @@ export const useTodoListStore = defineStore("todoList", {
     filter: "all",
     sortOrder: "",
     isModalVisible: false,
+    selectedTaskIdForTimeChallenge: null,
   }),
   getters: {
     filteredTodoList(state) {
@@ -138,6 +139,14 @@ export const useTodoListStore = defineStore("todoList", {
 
     closeModal() {
       this.isModalVisible = false;
+    },
+
+    setSelectedTaskForChallenge(taskId) {
+      this.selectedTaskForChallengeId = taskId;
+    },
+
+    clearSelectedTaskForChallenge() {
+      this.selectedTaskForChallengeId = null;
     },
   },
 });
