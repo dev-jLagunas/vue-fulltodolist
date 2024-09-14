@@ -4,15 +4,15 @@ import { useTodoListStore } from "./todo-list";
 export const useTimeChallengeStore = defineStore("timeChallenge", {
   state: () => ({
     isModalVisible: false,
-    activeChallenge: null, // Only one active challenge
+    activeChallenge: null,
     timeRemaining: null,
     intervalId: null,
     progress: 0,
-    totalPoints: 0, // Points stored here
+    totalPoints: 0,
+    outcomeMessage: "",
   }),
 
   actions: {
-    // Load challenges and points from local storage
     loadFromLocalStorage() {
       const savedChallenge = localStorage.getItem("activeChallenge");
       this.activeChallenge = savedChallenge ? JSON.parse(savedChallenge) : null;
@@ -21,7 +21,6 @@ export const useTimeChallengeStore = defineStore("timeChallenge", {
       this.totalPoints = savedPoints ? JSON.parse(savedPoints) : 0;
     },
 
-    // Save current state to local storage
     saveToLocalStorage() {
       localStorage.setItem(
         "activeChallenge",
@@ -30,7 +29,6 @@ export const useTimeChallengeStore = defineStore("timeChallenge", {
       localStorage.setItem("totalPoints", JSON.stringify(this.totalPoints));
     },
 
-    // Open and close modal
     openModal() {
       this.isModalVisible = true;
     },
@@ -38,7 +36,6 @@ export const useTimeChallengeStore = defineStore("timeChallenge", {
       this.isModalVisible = false;
     },
 
-    // Start a new time challenge
     startChallenge(selectedTask, selectedTimeLimit) {
       this.activeChallenge = {
         taskId: selectedTask.id,
@@ -51,7 +48,6 @@ export const useTimeChallengeStore = defineStore("timeChallenge", {
       this.startCountdown();
     },
 
-    // Countdown logic
     startCountdown() {
       const challenge = this.activeChallenge;
       const endTime = new Date(challenge.startTime);
@@ -79,21 +75,21 @@ export const useTimeChallengeStore = defineStore("timeChallenge", {
       }, 1000);
     },
 
-    // Mark challenge as completed or failed
     completeChallenge(outcome) {
       clearInterval(this.intervalId);
       this.intervalId = null;
       const todoListStore = useTodoListStore();
 
-      // Award or deduct points based on outcome
       if (outcome === "success") {
-        this.totalPoints += 25; // Flat 25 points for successful completion
+        this.totalPoints += 25;
+        this.outcomeMessage = "You did it! Here are 25 points";
       } else if (outcome === "canceled" || outcome === "timeout") {
-        this.totalPoints -= 50; // Subtract 50 points for cancel or timeout
+        this.totalPoints -= 50;
+        this.outcomeMessage = "Too bad, minus 50 points";
       }
 
-      // Reset active challenge
-      todoListStore.setSelectedTaskForChallenge(null);
+      this.clearOutcomeMessage();
+
       todoListStore.setSelectedTaskForChallenge(null);
       this.activeChallenge = null;
       this.timeRemaining = null;
@@ -102,12 +98,10 @@ export const useTimeChallengeStore = defineStore("timeChallenge", {
       this.saveToLocalStorage();
     },
 
-    // Cancel the current challenge
     cancelChallenge() {
       this.completeChallenge("canceled");
     },
 
-    // Clear all points and challenges (for example, if the user clears all tasks)
     clearAllPoints() {
       this.totalPoints = 0;
       this.activeChallenge = null;
@@ -116,12 +110,17 @@ export const useTimeChallengeStore = defineStore("timeChallenge", {
       this.saveToLocalStorage();
     },
 
-    // Clear countdown if necessary
     clearCountdown() {
       if (this.intervalId) {
         clearInterval(this.intervalId);
         this.intervalId = null;
       }
+    },
+
+    clearOutcomeMessage() {
+      setTimeout(() => {
+        this.outcomeMessage = "";
+      }, 5000);
     },
   },
 });

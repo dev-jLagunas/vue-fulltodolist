@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted } from "vue";
 import TodoHeader from "@/components/todoList/TodoHeader.vue";
 import TodoInput from "@/components/todoList/TodoInput.vue";
 import TodoList from "@/components/todoList/TodoList.vue";
@@ -11,10 +12,16 @@ import UserLoginModal from "@/components/user/UserLoginModal.vue";
 import TimeChallenge from "@/components/timeChalenges/TimeChallengeDisplay.vue";
 import TimeChallengePoints from "@/components/timeChalenges/TimeChallengePoints.vue";
 import { useUserAuthStore } from "@/stores/user-auth";
+import { useTimeChallengeStore } from "@/stores/time-challenge";
 
 // STORE
 const userAuthStore = useUserAuthStore();
-userAuthStore.loadUserFromLocalStorage();
+const timeChallengeStore = useTimeChallengeStore();
+
+onMounted(() => {
+  userAuthStore.loadUserFromLocalStorage();
+  timeChallengeStore.loadFromLocalStorage();
+});
 </script>
 
 <template>

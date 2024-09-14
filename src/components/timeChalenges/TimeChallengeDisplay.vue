@@ -11,7 +11,7 @@ const isDark = useDark();
 const timeChallengeStore = useTimeChallengeStore();
 
 // Computed Properties
-const activeChallenge = computed(() => timeChallengeStore.activeChallenge); // Only one active challenge now
+const activeChallenge = computed(() => timeChallengeStore.activeChallenge);
 const progress = computed(() => timeChallengeStore.progress);
 const colorBack = computed(() => (isDark.value ? "#f8fafc" : "#1e293b"));
 
@@ -93,11 +93,17 @@ const cancelChallenge = () => {
       </p>
     </section>
 
-    <aside v-if="timeChallengeStore.totalPoints">
-      <p>Points: {{ timeChallengeStore.totalPoints }}</p>
+    <aside
+      class="text-slate-50 bg-slate-800 dark:text-slate-800 dark:bg-slate-50 px-4 text-center mt-4 w-max rounded-sm mx-auto"
+    >
+      <p class="text-lg">{{ timeChallengeStore.outcomeMessage }}</p>
     </aside>
+
     <section class="border-t border-dotted border-slate-500 mt-4 text-center">
-      <button class="bg-red-500 text-slate-50 px-4 my-4 rounded-sm">
+      <button
+        @click="timeChallengeStore.clearAllPoints"
+        class="bg-red-500 text-slate-50 px-4 my-4 rounded-sm"
+      >
         Clear Points
       </button>
     </section>
