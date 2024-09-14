@@ -10,6 +10,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@globalhive/vuejs-tour": "^2.1.1",
     "@vueuse/core": "^11.0.3",
     "canvas-confetti": "^1.9.3",
     "circle-progress.vue": "^3.2.1",

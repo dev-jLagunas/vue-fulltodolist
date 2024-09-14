@@ -15,9 +15,24 @@ import ChallengeSuccessModal from "@/components/timeChalenges/ChallengeSuccessMo
 import InitializeTutorial from "@/components/introTutorial/InitializeTutorial.vue";
 import { useUserAuthStore } from "@/stores/user-auth";
 import { useTimeChallengeStore } from "@/stores/time-challenge";
+import { VTour } from "@globalhive/vuejs-tour";
+
+// V-TOUR STEPS
+const steps = [
+  {
+    target: '[data-step="0"]',
+    content: "This is where you add a new task",
+  },
+  { target: '[data-step="1"]', content: "Here is your task list" },
+  {
+    target: '[data-step="2"]',
+    content: "Use filters to view active/completed tasks",
+  },
+];
 
 // REF
 const isSuccessModalOpen = ref(false);
+const tour = ref();
 
 // STORE
 const userAuthStore = useUserAuthStore();
@@ -31,6 +46,14 @@ onMounted(() => {
 
 const toggleSuccessModal = () => {
   isSuccessModalOpen.value = true;
+};
+
+const startTour = () => {
+  // Clear the tour state from local storage
+  localStorage.removeItem("vjt-default");
+
+  // Start the tour
+  tour.value.startTour();
 };
 
 // WATCHER
@@ -50,8 +73,11 @@ watch(
 
 <template>
   <div
-    class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto relative"
+    class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto relative text-center"
   >
+    <!-- Trigger Button for Testing -->
+    <button @click="startTour">Trigger Tutorial</button>
+
     <TodoCurrentDate />
     <TodoHeader />
     <TodoInput />
@@ -60,11 +86,11 @@ watch(
   <main
     class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto relative"
   >
-    <TimeChallengePoints />
+    <TimeChallengePoints data-step="0" />
     <TodoProgressBar />
     <TodoHeadings />
-    <TodoList />
-    <TodoListFilter />
+    <TodoList data-step="1" />
+    <TodoListFilter data-step="2" />
   </main>
   <footer
     class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto relative"
@@ -77,4 +103,14 @@ watch(
   />
   <ChallengeSuccessModal v-if="isSuccessModalOpen" />
   <InitializeTutorial />
+  <!-- VTour Component -->
+  <VTour ref="tour" :steps="steps" />
 </template>
+
+<style scoped>
+.vue-tour {
+  z-index: 10000 !important;
+  display: block !important;
+  opacity: 1 !important;
+}
+</style>

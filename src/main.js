@@ -7,6 +7,7 @@ import "./assets/main.css";
 import App from "./App.vue";
 import router from "./router";
 import "@/firebaseConfig";
+import "@globalhive/vuejs-tour/dist/style.css";
 
 const app = createApp(App);
 
