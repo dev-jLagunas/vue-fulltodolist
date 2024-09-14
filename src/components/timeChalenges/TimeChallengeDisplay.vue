@@ -88,7 +88,9 @@ const cancelChallenge = () => {
     </section>
 
     <section v-else>
-      <p>No challenges currently</p>
+      <p class="text-slate-800 dark:text-slate-50 text-center text-xl">
+        No Active Time Challenges
+      </p>
     </section>
 
     <aside v-if="timeChallengeStore.totalPoints">
