@@ -1,5 +1,8 @@
 import { defineStore } from "pinia";
 import { useTodoListStore } from "./todo-list";
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
 
 export const useTimeChallengeStore = defineStore("timeChallenge", {
   state: () => ({
@@ -83,6 +86,7 @@ export const useTimeChallengeStore = defineStore("timeChallenge", {
       if (outcome === "success") {
         this.totalPoints += 25;
         this.outcomeMessage = "You did it! Here are 25 points";
+        toast.success("Good job! points added");
       } else if (outcome === "canceled" || outcome === "timeout") {
         this.totalPoints -= 50;
         this.outcomeMessage = "Too bad, minus 50 points";
@@ -100,6 +104,7 @@ export const useTimeChallengeStore = defineStore("timeChallenge", {
 
     cancelChallenge() {
       this.completeChallenge("canceled");
+      toast.error("Challenge cancelled!");
     },
 
     clearAllPoints() {
@@ -108,6 +113,7 @@ export const useTimeChallengeStore = defineStore("timeChallenge", {
       this.timeRemaining = null;
       this.progress = 0;
       this.saveToLocalStorage();
+      toast.success("All points successfully cleared!");
     },
 
     clearCountdown() {

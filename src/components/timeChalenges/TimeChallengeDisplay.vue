@@ -1,11 +1,21 @@
 <script setup>
-import { computed, watch, onUnmounted } from "vue";
+import { computed, watch, onUnmounted, ref } from "vue";
 import { useDark } from "@vueuse/core";
 import { useTimeChallengeStore } from "@/stores/time-challenge";
 import { CircleProgressBar } from "circle-progress.vue";
+import DeleteConfirmationModal from "@/components/todoList/TodoDeleteModal.vue";
 
 // Handle Dark Mode
 const isDark = useDark();
+
+// REFS
+const isCancelModalVisible = ref(false);
+const isClearPointsModalVisible = ref(false);
+
+// VARIABLES
+const cancelMsg =
+  "Do you really want to cancel this challenge? You will lose 25 points!";
+const clearPointsMsg = "Do you really want to clear all your points?";
 
 // Store
 const timeChallengeStore = useTimeChallengeStore();
@@ -32,8 +42,22 @@ const completeChallenge = () => {
   timeChallengeStore.completeChallenge("success");
 };
 
-const cancelChallenge = () => {
+const showHideCancelModal = () => {
+  isCancelModalVisible.value = !isCancelModalVisible.value;
+};
+
+const confirmCancelChallenge = () => {
   timeChallengeStore.cancelChallenge();
+  isCancelModalVisible.value = false;
+};
+
+const showHideClearPointsModal = () => {
+  isClearPointsModalVisible.value = !isClearPointsModalVisible.value;
+};
+
+const confirmClearPoints = () => {
+  timeChallengeStore.clearAllPoints();
+  isClearPointsModalVisible.value = false;
 };
 </script>
 
@@ -78,7 +102,7 @@ const cancelChallenge = () => {
       </p>
 
       <footer class="flex justify-center gap-8 w-full mt-4">
-        <button @click="cancelChallenge" class="text-red-500 text-lg">
+        <button @click="showHideCancelModal" class="text-red-500 text-lg">
           Cancel
         </button>
         <button @click="completeChallenge" class="text-green-500 text-lg">
@@ -88,7 +112,7 @@ const cancelChallenge = () => {
     </section>
 
     <section v-else>
-      <p class="text-slate-800 dark:text-slate-50 text-center text-xl">
+      <p class="text-slate-800 dark:text-slate-50 text-center">
         No Active Time Challenges
       </p>
     </section>
@@ -101,11 +125,24 @@ const cancelChallenge = () => {
 
     <section class="border-t border-dotted border-slate-500 mt-4 text-center">
       <button
-        @click="timeChallengeStore.clearAllPoints"
+        @click="showHideClearPointsModal"
         class="bg-red-500 text-slate-50 px-4 my-4 rounded-sm"
       >
         Clear Points
       </button>
     </section>
   </article>
+  <DeleteConfirmationModal
+    :isVisible="isCancelModalVisible"
+    :displayMsg="cancelMsg"
+    @confirm="confirmCancelChallenge"
+    @cancel="showHideCancelModal"
+  />
+
+  <DeleteConfirmationModal
+    :isVisible="isClearPointsModalVisible"
+    :displayMsg="clearPointsMsg"
+    @confirm="confirmClearPoints"
+    @cancel="showHideClearPointsModal"
+  />
 </template>
