@@ -94,15 +94,22 @@ const itemsText = computed(() => {
           >
             <i class="fa-solid fa-circle-exclamation text-xs"></i>
           </span>
+          <label class="sr-only" for="task-completed-{{ task.id }}"
+            >Mark task as completed</label
+          >
           <input
             type="checkbox"
+            id="task-completed-{{ task.id }}"
+            name="task-completed"
             :checked="task.isCompleted"
             @change="todoListStore.toggleCompleted(task.id)"
           />
         </div>
+        <label class="sr-only" for="edit-task{{ task.id }}">Editing task</label>
         <input
           v-if="task.isEditing"
           type="text"
+          id="edit-task{{ task.id }}"
           v-model="task.taskText"
           @keyup.enter="todoListStore.editTodoItem(task.id, task.taskText)"
           class="pl-2 bg-slate-800 text-slate-50 dark:bg-slate-50 dark:text-slate-800 rounded-sm"

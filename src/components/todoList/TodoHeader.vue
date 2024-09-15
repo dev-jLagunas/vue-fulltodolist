@@ -69,6 +69,7 @@ const headerText = computed(() => {
         type="button"
         class="px-3 py-1 hover:bg-slate-800 hover:text-slate-50 dark:hover:bg-slate-50 dark:hover:text-slate-800 duration-500"
         @click="todoListStore.setMode('todo')"
+        aria-label="View todo list"
       >
         <i class="fa-solid fa-list-ul"></i>
       </button>
@@ -76,6 +77,7 @@ const headerText = computed(() => {
         type="button"
         class="px-3 py-1 hover:bg-slate-800 hover:text-slate-50 dark:hover:bg-slate-50 dark:hover:text-slate-800 duration-500"
         @click="todoListStore.setMode('shopping')"
+        aria-label="View shopping list"
       >
         <i class="fa-solid fa-cart-shopping"></i>
       </button>

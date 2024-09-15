@@ -23,7 +23,7 @@ const addTask = () => {
   <fieldset
     class="w-4/5 space-y-1 mx-auto text-slate-800 dark:text-slate-50 mb-4 md:w-1/2"
   >
-    <label for="url" class="block text-sm">Todo Task</label>
+    <label for="task-text" class="block text-sm">Todo Task</label>
     <div class="flex">
       <input
         type="text"

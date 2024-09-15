@@ -37,6 +37,7 @@ const completedText = computed(() => {
     >
       {{ completedText }}
     </button>
+    <label for="sort-select" class="sr-only">Sort tasks</label>
     <select
       name="sort-select"
       id="sort-select"
