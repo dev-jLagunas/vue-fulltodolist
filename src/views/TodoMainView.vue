@@ -82,12 +82,17 @@ watch(
 </script>
 
 <template>
-  <button @click="startTour">Start Tour</button>
   <!-- VTour Component -->
   <VTour ref="tour" :steps="steps" backdrop />
   <div
     class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto relative text-center"
   >
+    <button
+      @click="startTour"
+      class="rotate-90 absolute -left-10 top-24 text-slate-50 bg-slate-800 dark:bg-slate-50 dark:text-slate-800 px-4 rounded-sm"
+    >
+      See Tour
+    </button>
     <TodoCurrentDate />
     <TodoHeader />
     <TodoInput class="todo-input" />
