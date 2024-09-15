@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch, nextTick } from "vue";
+import { onMounted, ref, watch } from "vue";
 import TodoHeader from "@/components/todoList/TodoHeader.vue";
 import TodoInput from "@/components/todoList/TodoInput.vue";
 import TodoList from "@/components/todoList/TodoList.vue";
@@ -35,7 +35,7 @@ const steps = [
   {
     target: ".todo-list",
     content:
-      "Your complete list. Mark tasks complete, edit them, or indivclassually delete them.",
+      "Your complete list. Mark tasks complete, edit them, or delete them individually.",
   },
   {
     target: ".todo-filter",
@@ -63,8 +63,6 @@ const toggleSuccessModal = () => {
 
 const startTour = () => {
   localStorage.removeItem("vjt-default");
-
-  // Start the tour
   tour.value.startTour();
 };
 
@@ -84,6 +82,7 @@ watch(
 </script>
 
 <template>
+  <button @click="startTour">Start Tour</button>
   <!-- VTour Component -->
   <VTour ref="tour" :steps="steps" backdrop />
   <div
@@ -113,7 +112,10 @@ watch(
     @close="userAuthStore.closeModal"
   />
   <ChallengeSuccessModal v-if="isSuccessModalOpen" />
-  <InitializeTutorial class="text-slate-800 bg-slate-50" />
+  <InitializeTutorial
+    class="text-slate-800 bg-slate-50"
+    @startTutorial="startTour"
+  />
 </template>
 
 <style>

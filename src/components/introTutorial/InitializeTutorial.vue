@@ -4,6 +4,10 @@ import manSvg from "@/assets/man.png";
 
 const isTutorialVisible = ref(false);
 
+//EMIT
+const emit = defineEmits(["startTutorial"]);
+
+//METHOS
 onMounted(() => {
   const hasSeenTutorial = localStorage.getItem("hasSeenTutorial");
   if (!hasSeenTutorial) {
@@ -15,12 +19,19 @@ const closeTutorial = () => {
   localStorage.setItem("hasSeenTutorial", "true");
   isTutorialVisible.value = false;
 };
+
+const closeAndStartTutorial = () => {
+  localStorage.setItem("hasSeenTutorial", "true");
+  isTutorialVisible.value = false;
+
+  emit("startTutorial");
+};
 </script>
 
 <template>
   <div
     v-if="isTutorialVisible"
-    class="fixed inset-0 bg-black bg-opacity-70 flex flex-col justify-end items-center z-10"
+    class="fixed inset-0 bg-slate-800 bg-opacity-90 flex flex-col justify-end items-center z-10"
   >
     <div class="flex justify-center flex-col items-center px-4 relative">
       <h1
@@ -33,7 +44,7 @@ const closeTutorial = () => {
       </figure>
       <button
         class="bg-blue-500 text-slate-50 px-4 rounded-sm absolute left-5 top-28 md:text-xl md:left-20 py-1"
-        @@click="closeTutorial"
+        @click="closeAndStartTutorial"
       >
         Yes, please
       </button>
