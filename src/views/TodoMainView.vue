@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch } from "vue";
+import { onMounted, ref, watch, nextTick } from "vue";
 import TodoHeader from "@/components/todoList/TodoHeader.vue";
 import TodoInput from "@/components/todoList/TodoInput.vue";
 import TodoList from "@/components/todoList/TodoList.vue";
@@ -20,13 +20,26 @@ import { VTour } from "@globalhive/vuejs-tour";
 // V-TOUR STEPS
 const steps = [
   {
-    target: '[data-step="0"]',
-    content: "This is where you add a new task",
+    target: ".todo-input",
+    content: "This is where you add a new task and add its priority level",
   },
-  { target: '[data-step="1"]', content: "Here is your task list" },
   {
-    target: '[data-step="2"]',
-    content: "Use filters to view active/completed tasks",
+    target: ".points-display",
+    content:
+      "Get points as you complete tasks. 100 points gets you a special surprise!",
+  },
+  {
+    target: ".todo-headings",
+    content: "Here you can delete your list to start fresh.",
+  },
+  {
+    target: ".todo-list",
+    content:
+      "Your complete list. Mark tasks complete, edit them, or indivclassually delete them.",
+  },
+  {
+    target: ".todo-filter",
+    content: "Filter and sort your list items for easy organization.",
   },
 ];
 
@@ -49,7 +62,6 @@ const toggleSuccessModal = () => {
 };
 
 const startTour = () => {
-  // Clear the tour state from local storage
   localStorage.removeItem("vjt-default");
 
   // Start the tour
@@ -72,45 +84,52 @@ watch(
 </script>
 
 <template>
+  <!-- VTour Component -->
+  <VTour ref="tour" :steps="steps" backdrop />
   <div
     class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto relative text-center"
   >
-    <!-- Trigger Button for Testing -->
-    <button @click="startTour">Trigger Tutorial</button>
-
     <TodoCurrentDate />
     <TodoHeader />
-    <TodoInput />
+    <TodoInput class="todo-input" />
   </div>
   <UserName />
   <main
     class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto relative"
   >
-    <TimeChallengePoints data-step="0" />
-    <TodoProgressBar />
-    <TodoHeadings />
-    <TodoList data-step="1" />
-    <TodoListFilter data-step="2" />
+    <TimeChallengePoints class="points-display" />
+    <TodoProgressBar class="progress-bar" />
+    <TodoHeadings class="todo-headings" />
+    <TodoList class="todo-list" />
+    <TodoListFilter class="todo-filter" />
   </main>
   <footer
     class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto relative"
   >
-    <TimeChallenge />
+    <TimeChallenge class="time-challenges" />
   </footer>
   <UserLoginModal
     v-if="userAuthStore.isModalVisible"
     @close="userAuthStore.closeModal"
   />
   <ChallengeSuccessModal v-if="isSuccessModalOpen" />
-  <InitializeTutorial />
-  <!-- VTour Component -->
-  <VTour ref="tour" :steps="steps" />
+  <InitializeTutorial class="text-slate-800 bg-slate-50" />
 </template>
 
-<style scoped>
-.vue-tour {
-  z-index: 10000 !important;
-  display: block !important;
-  opacity: 1 !important;
+<style>
+#vjt-tooltip {
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+#vjt-arrow::before {
+  background-color: #f8fafc;
+}
+.vjt-actions button {
+  border: 1px solid #1e293b;
+  color: #1e293b;
+}
+.vjt-actions button:hover {
+  background-color: #1e293b;
+  color: #f8fafc;
 }
 </style>
