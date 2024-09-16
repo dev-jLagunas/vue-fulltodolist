@@ -41,6 +41,11 @@ const steps = [
     target: ".todo-filter",
     content: "Filter and sort your list items for easy organization.",
   },
+  {
+    target: "#time-challenge",
+    content:
+      "Challenge yourself to finish a task within a set time limit to get extra points!",
+  },
 ];
 
 // REF
@@ -89,7 +94,7 @@ watch(
   >
     <button
       @click="startTour"
-      class="rotate-90 absolute -left-10 top-24 text-slate-50 bg-slate-800 dark:bg-slate-50 dark:text-slate-800 px-4 rounded-sm"
+      class="rotate-90 absolute -left-10 top-24 text-slate-50 bg-slate-800 dark:bg-slate-50 dark:text-slate-800 px-4 rounded-sm text-sm"
     >
       See Tour
     </button>
@@ -109,8 +114,9 @@ watch(
   </main>
   <footer
     class="border-2 border-slate-600 dark:border-slate-500 rounded-md mt-4 md:w-4/3 lg:w-2/3 md:mx-auto relative"
+    id="time-challenge"
   >
-    <TimeChallenge class="time-challenges" />
+    <TimeChallenge />
   </footer>
   <UserLoginModal
     v-if="userAuthStore.isModalVisible"

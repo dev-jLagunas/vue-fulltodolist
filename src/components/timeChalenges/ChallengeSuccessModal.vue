@@ -68,7 +68,7 @@
         </div>
       </div>
       <div class="name">
-        <p>Amazing</p>
+        <p>Congrats!!</p>
         <span class="name_circle01"></span>
         <span class="name_circle02"></span>
       </div>

@@ -42,7 +42,7 @@ const doneText = computed(() => {
       </p>
     </div>
 
-    <div class="flex flex-wrap gap-2 py-4" v-if="todoListStore.todoList.length">
+    <div class="flex flex-wrap gap-1 py-4" v-if="todoListStore.todoList.length">
       <span
         v-for="(task, index) in totalTasks"
         :key="index"
