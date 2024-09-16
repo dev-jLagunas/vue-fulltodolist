@@ -37,7 +37,7 @@ const headerText = computed(() => {
         }}<i class="fa-solid fa-right-to-bracket pl-2"></i>
       </button>
     </div>
-    <h1 class="font-bold tracking-widest text-4xl text-center mb-4">
+    <h1 class="text-xl font-bold text-center mb-4 md:text-3xl" loading="lazy">
       {{ headerText }}
     </h1>
 
