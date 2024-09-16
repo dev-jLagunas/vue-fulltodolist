@@ -19,6 +19,14 @@ RESET
 /**************************************************************
 GLOBAL STYLES
 ***************************************************************/
+@font-face {
+  font-family: "SUSE";
+  font-style: normal;
+  font-weight: 100 800;
+  src: url("/src/assets/fonts/SUSE-VariableFont_wght.ttf") format("truetype");
+  font-display: swap;
+}
+
 html {
   width: 90vw;
   margin-inline: auto;
