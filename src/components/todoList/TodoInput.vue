@@ -35,7 +35,7 @@ const addTask = () => {
         @keyup.enter="addTask"
       />
       <button
-        class="bg-orange-400 text-slate-50 px-4 dark:bg-blue-800 rounded-r-sm text-sm"
+        class="bg-orange-600 text-slate-50 px-4 dark:bg-blue-800 rounded-r-sm text-sm font-bold"
         @click="addTask"
       >
         Add

@@ -57,7 +57,7 @@ const headerText = computed(() => {
           class="w-10 h-6 rounded-full shadow-inner dark:bg-slate-100 bg-slate-700"
         ></div>
         <div
-          class="absolute inset-y-0 left-0 w-4 h-4 m-1 rounded-full shadow peer-checked:right-0 peer-checked:left-auto dark:bg-blue-800 bg-orange-400"
+          class="absolute inset-y-0 left-0 w-4 h-4 m-1 rounded-full shadow peer-checked:right-0 peer-checked:left-auto dark:bg-blue-800 bg-orange-600"
         ></div>
       </span>
       <span>Dark</span>

@@ -127,7 +127,7 @@ const itemsText = computed(() => {
         </span>
 
         <div
-          class="text-xs flex flex-col justify-center items-center md:flex-row md:text-base"
+          class="text-xs flex flex-col justify-center items-center md:flex-row md:text-base gap-2"
         >
           <button
             @click="task.isEditing = !task.isEditing"
