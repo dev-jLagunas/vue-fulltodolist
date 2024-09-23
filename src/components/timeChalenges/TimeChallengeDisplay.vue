@@ -62,10 +62,10 @@ const confirmClearPoints = () => {
 </script>
 
 <template>
-  <article>
+  <article class="lg:h-full lg:grid lg:place-items-center">
     <header>
       <h2
-        class="text-slate-800 dark:text-slate-50 text-center my-2 pb-2 text-lg font-bold border-b border-b-slate-500 border-dotted"
+        class="text-slate-800 dark:text-slate-50 text-center my-2 pb-2 text-lg font-bold border-b border-b-slate-500 border-dotted lg:text-4xl"
       >
         Time Challenge
       </h2>
@@ -89,7 +89,7 @@ const confirmClearPoints = () => {
       <CircleProgressBar
         :value="progress"
         :max="100"
-        :size="125"
+        :size="175"
         :colorUnfilled="'#0891b2'"
         :colorBack="colorBack"
         :colorFilled="'#ef4444'"
@@ -112,9 +112,10 @@ const confirmClearPoints = () => {
     </section>
 
     <section v-else>
-      <p class="text-slate-800 dark:text-slate-50 text-center">
+      <p class="text-slate-800 dark:text-slate-50 text-center lg:text-2xl">
         No Active Time Challenges
       </p>
+      <p class="text-slate-700 dark:text-slate-50">Give it a shot!</p>
     </section>
 
     <aside
@@ -123,10 +124,12 @@ const confirmClearPoints = () => {
       <p class="text-lg">{{ timeChallengeStore.outcomeMessage }}</p>
     </aside>
 
-    <section class="border-t border-dotted border-slate-500 mt-4 text-center">
+    <section
+      class="border-t border-dotted border-slate-500 mt-4 text-center lg:mt-0"
+    >
       <button
         @click="showHideClearPointsModal"
-        class="bg-red-500 text-slate-50 px-4 my-4 rounded-sm"
+        class="bg-red-500 text-slate-50 px-4 my-4 rounded-sm lg:text-2xl"
       >
         Clear Points
       </button>
